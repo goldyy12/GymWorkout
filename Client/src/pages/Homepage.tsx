@@ -449,6 +449,7 @@ export default function Homepage() {
                                   />
 
                                   <div className="flex gap-3">
+                                    <label className="sr-only">Sets</label>
                                     <input
                                       type="number"
                                       min={1}
@@ -460,6 +461,7 @@ export default function Homepage() {
                                       }
                                       className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm"
                                     />
+                                    <label className="sr-only">Reps</label>
 
                                     <input
                                       type="number"

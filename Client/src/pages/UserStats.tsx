@@ -45,15 +45,18 @@ export default function UserStats() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12 font-sans">
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12 font-sans flex flex-col items-center">
       <h1 className="text-3xl font-black text-emerald-400 tracking-tight">
         User Stats
       </h1>
 
-      <a href="/homepage" className="text-emerald-400 hover:text-emerald-300">
+      <a
+        href="/homepage"
+        className="text-emerald-400 hover:text-emerald-300 mt-2"
+      >
         ← Back to Homepage
       </a>
-      <div className="mt-6 bg-slate-800 p-6 rounded-lg shadow-md">
+      <div className="mt-6 bg-slate-800 p-6 rounded-lg shadow-md w-full max-w-md text-center">
         <p>Height: {height} cm </p>
         <p>Weight: {weight} kg</p>
         <p>Age: {age} years</p>
