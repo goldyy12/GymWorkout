@@ -21,7 +21,7 @@ services:
     ports:
       - "3000:80"
     environment:
-      # ADD THIS LINE HERE so your React code can read the backend URL
+      
       - VITE_API_URL=http://localhost:5000  
     depends_on:
       - backend
