@@ -264,7 +264,6 @@ export default function Homepage() {
             </div>
           </div>
 
-          {/* RIGHT: WORKOUT DETAILS & CREATION */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             {showCreateWorkout ? (
               <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">

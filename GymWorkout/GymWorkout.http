@@ -1,0 +1,11 @@
+@GymWorkout_HostAddress = http://localhost:5299
+
+### Register a New User
+POST {{GymWorkout_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  
+  "password": "diar1234",
+  "username": "diar"
+}
