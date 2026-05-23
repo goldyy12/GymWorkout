@@ -24,7 +24,7 @@ namespace GymWorkout.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWorkouts([FromQuery] DateTime? date)
         {
-            // Using our private helper method!
+            
             int? userId = User.GetCurrentUserId();
             if (userId == null) return Unauthorized("Invalid user ID in token");
 

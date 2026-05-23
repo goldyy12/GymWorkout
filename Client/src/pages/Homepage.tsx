@@ -449,43 +449,57 @@ export default function Homepage() {
                                   />
 
                                   <div className="flex gap-3">
-                                    <label className="sr-only">Sets</label>
-                                    <input
-                                      type="number"
-                                      min={1}
-                                      value={getForm(w.id).sets}
-                                      onChange={(e) =>
-                                        patchForm(w.id, {
-                                          sets: Number(e.target.value),
-                                        })
-                                      }
-                                      className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm"
-                                    />
-                                    <label className="sr-only">Reps</label>
-
-                                    <input
-                                      type="number"
-                                      min={1}
-                                      value={getForm(w.id).reps}
-                                      onChange={(e) =>
-                                        patchForm(w.id, {
-                                          reps: Number(e.target.value),
-                                        })
-                                      }
-                                      className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm"
-                                    />
-                                    <input
-                                      type="number"
-                                      min={0}
-                                      value={getForm(w.id).weight ?? ""}
-                                      onChange={(e) =>
-                                        patchForm(w.id, {
-                                          weight: Number(e.target.value),
-                                        })
-                                      }
-                                      className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-amber-400 placeholder:*-amber-600"
-                                      placeholder="Weight (kg) "
-                                    />
+                                    <div className="flex-1 flex flex-col gap-1">
+                                      <label className="text-xs text-slate-400">
+                                        Sets
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min={1}
+                                        value={getForm(w.id).sets}
+                                        onChange={(e) =>
+                                          patchForm(w.id, {
+                                            sets: Number(e.target.value),
+                                          })
+                                        }
+                                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm"
+                                      />
+                                    </div>
+                                    <div className="flex-1 flex flex-col gap-1">
+                                      <label className="text-xs text-slate-400">
+                                        Reps
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min={1}
+                                        value={getForm(w.id).reps}
+                                        onChange={(e) =>
+                                          patchForm(w.id, {
+                                            reps: Number(e.target.value),
+                                          })
+                                        }
+                                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm"
+                                      />
+                                    </div>
+                                    <div className="flex-1 flex flex-col gap-1">
+                                      <label className="text-xs text-slate-400">
+                                        Weight (kg)
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min={0}
+                                        value={getForm(w.id).weight ?? ""}
+                                        onChange={(e) =>
+                                          patchForm(w.id, {
+                                            weight:
+                                              e.target.value === ""
+                                                ? null
+                                                : Number(e.target.value),
+                                          })
+                                        }
+                                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-amber-400"
+                                      />
+                                    </div>
                                   </div>
 
                                   <button
