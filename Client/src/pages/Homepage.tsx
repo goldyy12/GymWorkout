@@ -81,17 +81,20 @@ export default function Homepage() {
     );
   }, [workouts, formattedDate]);
 
+  const workoutIds = currentDayWorkouts.map((w) => w.id).join(",");
+
   useEffect(() => {
-    if (currentDayWorkouts.length === 0) return;
+    if (!workoutIds) return;
 
     const fetchAllExercisesForDay = async () => {
       setIsFetching(true);
       try {
-        const promises = currentDayWorkouts.map((w) =>
-          api.get(`/workouts/${w.id}/exercises`).then((res) => res.data),
-        );
+        const promises = workoutIds
+          .split(",")
+          .map((id) =>
+            api.get(`/workouts/${id}/exercises`).then((res) => res.data),
+          );
         const results = await Promise.all(promises);
-        // Flatten array of arrays into one state array
         setExercises(results.flat());
       } catch {
         console.error("Failed to fetch exercises.");
@@ -101,7 +104,7 @@ export default function Homepage() {
     };
 
     fetchAllExercisesForDay();
-  }, [currentDayWorkouts]);
+  }, [workoutIds]);
   const deleteExercise = async (exerciseId: number) => {
     setIsSaving(true);
 
@@ -220,6 +223,11 @@ export default function Homepage() {
           <h1 className="text-3xl font-black text-emerald-400 tracking-tight">
             GymWorkout Tracker
           </h1>
+          <span className="text-sm font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">
+            <a href="/userstats" className="hover:text-emerald-400">
+              View Stats
+            </a>
+          </span>
           <span className="text-sm font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">
             Active Date: {formattedDate}
           </span>
