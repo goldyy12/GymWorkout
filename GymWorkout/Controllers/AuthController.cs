@@ -48,7 +48,7 @@ namespace GymWorkout.Controllers
             
             await _context.SaveChangesAsync();
 
-            return Ok(new { Message = "Registration successful! You can now log in." });
+            return Ok(new { Message = "Registration successful!You can now log in." });
         }
 
         [HttpPost("login")]
