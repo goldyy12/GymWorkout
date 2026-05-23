@@ -1,4 +1,4 @@
-# 💪 GymWorkout
+#  GymWorkout
 
 A full-stack gym workout tracking application built with **.NET** (backend) and **React + TypeScript** (frontend).
 
