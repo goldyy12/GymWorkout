@@ -105,11 +105,11 @@ export default function Homepage() {
 
     fetchAllExercisesForDay();
   }, [workoutIds]);
-  const deleteExercise = async (exerciseId: number) => {
+  const deleteExercise = async (exerciseId: number, workoutId: number) => {
     setIsSaving(true);
 
     try {
-      await api.delete(`/exercises/${exerciseId}`);
+      await api.delete(`/workouts/${workoutId}/exercises/${exerciseId}`);
       setExercises((prev) => prev.filter((ex) => ex.id !== exerciseId));
     } catch {
       console.error("Failed to delete exercise.");
@@ -410,7 +410,9 @@ export default function Homepage() {
                                         kg
                                       </span>
                                       <button
-                                        onClick={() => deleteExercise(ex.id)}
+                                        onClick={() =>
+                                          deleteExercise(ex.id, ex.workoutId)
+                                        }
                                         disabled={isSaving}
                                         className="text-xs text-amber-500 hover:text-amber-600"
                                       >
