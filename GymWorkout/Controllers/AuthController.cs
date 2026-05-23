@@ -10,8 +10,8 @@ using System.Text;
 namespace GymWorkout.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    
+    [Route("api/auth")]
+
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
