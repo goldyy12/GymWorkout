@@ -19,7 +19,6 @@ export default function Register() {
         password,
       });
 
-      // Redirect to login page on success
       navigate("/login");
     } catch (error) {
       console.error("Register failed:", error);
