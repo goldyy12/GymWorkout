@@ -13,7 +13,7 @@ function getUserFromToken() {
     userId: decoded.userId,
     username: decoded.username,
     email: decoded.email,
-  };
+  } as User;
 }
 
 export default function AuthProvider({
@@ -30,7 +30,7 @@ export default function AuthProvider({
       userId: decoded.userId,
       username: decoded.username,
       email: decoded.email,
-    });
+    } as User);
   };
 
   const logout = () => {

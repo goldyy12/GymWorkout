@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import api from "../Api";
@@ -57,18 +57,15 @@ export default function Homepage() {
       weight: null,
     };
 
-  const [error, setError] = useState<string | null>(null);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchWorkouts = async () => {
       setIsFetching(true);
-      setError(null);
+
       try {
         const res = await api.get("/workout");
         setWorkouts(res.data);
       } catch {
-        setError("Failed to load workouts. Please refresh.");
+        console.error("Failed to fetch workouts.");
       } finally {
         setIsFetching(false);
       }
@@ -97,7 +94,7 @@ export default function Homepage() {
         // Flatten array of arrays into one state array
         setExercises(results.flat());
       } catch {
-        setError("Failed to load exercises.");
+        console.error("Failed to fetch exercises.");
       } finally {
         setIsFetching(false);
       }
@@ -107,14 +104,12 @@ export default function Homepage() {
   }, [currentDayWorkouts]);
   const deleteExercise = async (exerciseId: number) => {
     setIsSaving(true);
-    setError(null);
-    setSuccessMsg(null);
+
     try {
       await api.delete(`/exercises/${exerciseId}`);
       setExercises((prev) => prev.filter((ex) => ex.id !== exerciseId));
-      setSuccessMsg("Exercise deleted.");
     } catch {
-      setError("Failed to delete exercise. Please try again.");
+      console.error("Failed to delete exercise.");
     } finally {
       setIsSaving(false);
     }
@@ -147,8 +142,7 @@ export default function Homepage() {
   const handleCreateWorkout = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSaving(true);
-    setError(null);
-    setSuccessMsg(null);
+
     try {
       const payload = {
         name: workoutName,
@@ -159,13 +153,13 @@ export default function Homepage() {
       const newWorkout: Workout =
         res.data && res.data.id ? res.data : { ...payload, id: Date.now() };
       setWorkouts((prev) => [...prev, newWorkout]);
-      setSuccessMsg(`"${workoutName}" created!`);
+
       setWorkoutName("");
       setWorkoutDescription("");
       setWorkoutDateTime(toLocalDateTimeInput(selectedDate));
       setShowCreateWorkout(false);
     } catch {
-      setError("Failed to create workout. Please try again.");
+      console.error("Failed to create workout.");
     } finally {
       setIsSaving(false);
     }
@@ -197,8 +191,6 @@ export default function Homepage() {
   ) => {
     e.preventDefault();
     setIsSaving(true);
-    setError(null);
-    setSuccessMsg(null);
 
     try {
       const form = getForm(workoutId);
@@ -212,11 +204,10 @@ export default function Homepage() {
       const res = await api.post(`/workouts/${workoutId}/exercises`, payload);
 
       setExercises((prev) => [...prev, res.data]);
-      setSuccessMsg(`"${form.name}" added!`);
 
       // Reset exercise form
     } catch {
-      setError("Failed to add exercise. Please try again.");
+      console.error("Failed to create exercise.");
     } finally {
       setIsSaving(false);
     }
@@ -252,7 +243,7 @@ export default function Homepage() {
                       {dayWorkouts.map((w) => (
                         <p
                           key={w.id}
-                          className="text-[10px] text-emerald-400 font-bold leading-tight break-words text-center mt-0.5"
+                          className="text-[10px] text-emerald-400 font-bold leading-tight wrap-break-words text-center mt-0.5"
                         >
                           {w.name}
                         </p>
