@@ -8,6 +8,10 @@ function getUserFromToken() {
   const token = localStorage.getItem("token");
   if (!token) return null;
   const decoded: DecodedToken = jwtDecode(token);
+  if (decoded.exp * 1000 < Date.now()) {
+    localStorage.removeItem("token"); // clean up expired token
+    return null;
+  }
 
   return {
     userId: decoded.userId,
@@ -26,12 +30,7 @@ export default function AuthProvider({
   const login = (token: string) => {
     localStorage.setItem("token", token);
     const decoded: DecodedToken = jwtDecode(token);
-    if (!decoded || !decoded.userId) {
-      throw new Error("Invalid token");
-    }
-    if (decoded.exp * 1000 < Date.now()) {
-      throw new Error("Token has expired");
-    }
+
     setUser({
       userId: decoded.userId,
       username: decoded.username,
